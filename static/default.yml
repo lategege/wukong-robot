@@ -175,6 +175,10 @@ fun_asr:
     inference_type: onnxruntime # FunASR支持本地onnxruntime，libtorch推理框架，以及client-server方式，当前只实现了onnxruntime方式，相对部署流程较为简单
     model_dir: '/xxxxxxxxxxxxxxxxxxx/export/damo/speech_paraformer-large_asr_nat-zh-cn-16k-common-vocab8404-pytorch' # 上述流程导出的模型的模型文件的绝对路径
 
+#达摩院FunASR语音识别模型websocket接入
+fun-asr-wss:
+    # 指定你FunASR的服务器地址(必须是wss协议)
+    url: 'wss://127.0.0.1:10095'
 
 # HanTTS 服务
 han-tts:

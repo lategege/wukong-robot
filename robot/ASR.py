@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 from aip import AipSpeech
-from .sdk import TencentSpeech, AliSpeech, XunfeiSpeech, BaiduSpeech, FunASREngine
+from .sdk import TencentSpeech, AliSpeech, XunfeiSpeech, BaiduSpeech, FunASREngine,FunASRWssEngine
 from . import utils, config
 from robot import logging
 from abc import ABCMeta, abstractmethod
@@ -266,7 +266,29 @@ class FunASR(AbstractASR):
         else:
             logger.critical(f"{self.SLUG} 语音识别出错了", stack_info=True)
             return ""
+        
+class FunASRWss(AbstractASR):
+    """
+    达摩院FunASR wss方式接入，可使用docker部署服务
+    """
+    SLUG = "fun-asr-wss"
+    def __init__(self, url, **args):
+        super(self.__class__, self).__init__()
+        self.wssclient = FunASRWssEngine.funASRWss(url)
 
+    @classmethod
+    def get_config(cls):
+        return config.get("fun-asr-wss", {})
+
+    def transcribe(self, fp):
+        result = self.wssclient.asr(fp)
+        if result:
+            logger.info(f"{self.SLUG} 语音识别到了：{result}")
+            return result
+        else:
+            logger.critical(f"{self.SLUG} 语音识别出错了", stack_info=True)
+            return ""
+        
 def get_engine_by_slug(slug=None):
     """
     Returns:
