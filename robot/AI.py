@@ -206,7 +206,8 @@ class OPENAIRobot(AbstractRobot):
             self.openai.api_key = openai_api_key
             if proxy:
                 logger.info(f"{self.SLUG} 使用代理：{proxy}")
-                self.openai.proxy = proxy
+                #openai.proxy is deprecated in openai 1.2+, use os proxy instead
+                #self.openai.proxy = proxy
 
         except Exception:
             logger.critical("OpenAI 初始化失败，请升级 Python 版本至 > 3.6")
@@ -254,7 +255,6 @@ class OPENAIRobot(AbstractRobot):
                 headers=header,
                 json=data,
                 stream=True,
-                proxies={"https": self.openai.proxy},
             )
 
             def generate():
