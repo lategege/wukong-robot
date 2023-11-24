@@ -261,12 +261,13 @@ anyq:
 tuling:
     tuling_key: '98f95153fb5c4684a5602b909949ba61'  # 建议使用自己的图灵机器人API Key
 
-# OpenAI(ChatGPT) 机器人
+# OpenAI(ChatGPT、Chatglm3-6b) 机器人
 # 使用科学上网工具到 https://platform.openai.com
 # 注册一个账号，获得 openai_api_key 后填到下面的配置中即可
+# 兼容chatglm3-6b,只要配置model为chatglm3-6b, api_base配置为服务的地址即可
 openai:
     openai_api_key: 'sk-xxxxxxxxxxxxxxxxxxxxxxxxxx'
-    # 参数指定将生成文本的模型类型。目前支持 gpt-3.5-turbo 和 gpt-3.5-turbo-0301 两种选择
+    # 模型支持openai官方的 gpt-3.5-turbo 和 gpt-3.5-turbo-0301, chatglm支持chatglm3-6b
     model: 'gpt-3.5-turbo'
     # 在前面加的一段前缀
     prefix: '请用200字回答：'

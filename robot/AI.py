@@ -244,9 +244,9 @@ class OPENAIRobot(AbstractRobot):
             "Authorization": "Bearer " + self.openai.api_key,
         }
 
-        data = {"model": "gpt-3.5-turbo", "messages": self.context, "stream": True}
-        logger.info("开始流式请求")
+        data = {"model": self.model, "messages": self.context, "stream": True}
         url = self.api_base + "/completions"
+        logger.info("开始流式请求 model: "+self.model +"  url:"+url)
         # 请求接收流式数据
         try:
             response = requests.request(
@@ -273,9 +273,7 @@ class OPENAIRobot(AbstractRobot):
                                 choice = line_json["choices"][0]
                                 if "delta" in choice:
                                     delta = choice["delta"]
-                                    if "role" in delta:
-                                        role = delta["role"]
-                                    elif "content" in delta:
+                                    if "content" in delta:
                                         delta_content = delta["content"]
                                         i += 1
                                         if i < 40:
