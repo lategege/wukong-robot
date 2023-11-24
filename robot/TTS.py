@@ -399,7 +399,8 @@ class MacTTS(AbstractTTS):
     def get_speech(self, phrase):
         tmpfile = os.path.join(constants.TEMP_PATH, uuid.uuid4().hex + ".asiff")
         res = subprocess.run(
-            ["say", "-v", self.voice, "-o", tmpfile, str(phrase)],
+            #["say", "-v", self.voice, "-o", tmpfile, str(phrase)],
+            ["say", "-o", tmpfile, str(phrase)],
             shell=False,
             universal_newlines=True,
         )
